@@ -28,8 +28,23 @@ MODEL_NAME = "llama-3.1-8b-instant"  # <--- UPDATED MODEL ID to fix decommission
 # 2. Utility Functions
 # ------------------------------------------
 def clean_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.convert_dtypes()
+    """
+    Cleans the dataframe by removing unnamed columns, converting dtypes,
+    and forcing problematic 'object' columns to 'string' to prevent
+    PyArrow serialization errors.
+    """
+    # Remove "Unnamed:" columns that often appear from CSVs
     df = df.loc[:, ~df.columns.str.contains("^Unnamed")]
+    
+    # Let pandas infer the best possible dtypes (e.g., to Int64, string)
+    df = df.convert_dtypes() 
+
+    # --- THIS IS THE FIX ---
+    # Find any columns that are *still* 'object' type (meaning mixed types)
+    # and force them to be 'string' to make them compatible with PyArrow.
+    for col in df.select_dtypes(include=['object']).columns:
+        df[col] = df[col].astype(str)
+        
     return df
 
 def build_dataset_snapshot(df: pd.DataFrame, max_rows=10) -> str:
