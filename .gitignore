@@ -1,0 +1,15 @@
+Virtual Environments
+
+.venv/
+venv/
+env/
+
+Environment Variables and Secrets
+
+.env
+.streamlit/secrets.toml
+
+Python artifacts
+
+pycache/
+*.pyc
