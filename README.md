@@ -34,7 +34,7 @@ cd ai-data-qa-dashboard
 
 # Create and activate the environment
 python -m venv venv
-.\venv\Scripts\Activate.ps1
+.\venv\Scripts\Activate
 
 # Install all dependencies (from the generated requirements.txt)
 pip install -r requirements.txt 
