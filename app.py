@@ -6,7 +6,7 @@ from groq import Groq
 import os # To read the API key securely
 
 st.set_page_config(page_title="AI Data Q&A", layout="wide")
-st.title("☁️ AI Data Question Answering Dashboard (Groq API)")
+st.title("☁️ AI Based Dashboard For Analysis and Summaries")
 
 # ------------------------------------------
 # 1. Groq Client Initialization & Security Check
@@ -123,11 +123,11 @@ if uploaded:
     st.markdown("---")
     st.subheader("🔍 Ask Any Question About the Data")
 
-    user_question = st.text_input("Ask your question… (e.g. Which manufacturer has highest total sales?)")
+    user_question = st.text_input("Ask your question… ")
 
     col1, col2 = st.columns([1, 1])
     with col1:
-        ask_btn = st.button("Ask")
+        ask_btn = st.button("Analyze")
     with col2:
         summary_btn = st.button("Generate Summary")
 
@@ -160,7 +160,7 @@ if uploaded:
                 )
                 answer = resp.choices[0].message.content
 
-                st.write("### 🧠 AI Answer (via Groq Llama 3.1)")
+                st.write("### 🧠 AI Generated Answer ")
                 st.write(answer)
 
             except Exception as e:
@@ -194,7 +194,7 @@ if uploaded:
                 )
                 summary = resp.choices[0].message.content
 
-                st.write("### 📝 Generated Summary (via Groq Llama 3.1)")
+                st.write("## 📝 Generated Summary ")
                 st.write(summary)
 
             except Exception as e:
